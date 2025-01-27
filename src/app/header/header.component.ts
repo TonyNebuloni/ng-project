@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
+  imports: [RouterLink, RouterLinkActive],
   template: `
     <header>
-      <h1>Harry Potter Characters</h1>
+      <h1 > <a routerLink=''>Harry Potter Characters</a></h1>
+      <a routerLink='/favorites' routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Mes Favoris</a>
+
     </header>
   `,
   styles: [

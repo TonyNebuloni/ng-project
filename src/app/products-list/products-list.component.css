@@ -1,18 +1,27 @@
 
 h1 {
     font-size: 2.5rem;
-    color: #4a2c2a;
+    color: #f5f5f5;
     text-align: center;
     margin-bottom: 24px;
     font-family: 'Georgia', serif; 
   }
   
   h2 {
-    color: #3e2723; 
+    color: #f5f5f5; 
     text-align: center;
     margin-bottom: 16px;
   }
-  
+  #search {
+    margin: 16px 5px 32px 5px; 
+    padding: 6px 12px;
+    font-size: 1rem;
+    border: 2px solid #6a1b9a;
+    border-radius: 6px;
+    background-color: #f5f5f5;
+    color: #4a148c;
+    
+  }
   label {
     font-weight: bold;
     margin-right: 8px;
@@ -25,7 +34,7 @@ h1 {
     font-size: 1rem;
     border: 2px solid #6a1b9a;
     border-radius: 6px;
-    background-color: #b35bc0;
+    background-color: #f5f5f5;
     color: #4a148c;
   }
   

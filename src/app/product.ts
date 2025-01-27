@@ -3,4 +3,5 @@ export interface Product {
     name: string,
     isFavorite: boolean,
     createdDate: Date
+    taille: number,
 }
