@@ -1,0 +1,98 @@
+.product-card {
+  border: 2px solid #4b2c20; /* Couleur sombre pour rappeler les tons magiques */
+  background: linear-gradient(145deg, #f5f5f5, #e0d4ba); /* Effet parcheminé */
+  border-radius: 12px;
+  text-align: center;
+  padding: 20px;
+  margin: 16px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Georgia', serif; /* Rappel de l'univers Harry Potter */
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.product-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #6b4226; /* Effet ancien autour de l'image */
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.product-card img:hover {
+  transform: scale(1.1);
+}
+
+.product-header h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c1503; /* Couleur sombre */
+  margin: 12px 0;
+}
+
+.product-card p {
+  font-size: 1.1rem;
+  color: #4b3f35; /* Couleur sombre pour le texte */
+  margin: 8px 0;
+}
+.product-header .created-date {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #4b3f35;
+  margin-top: 8px;
+}
+
+.product-actions button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #f6e58d; /* Couleur parchemin */
+  color: #3b1e08; /* Couleur sombre pour le texte */
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.product-actions button.favorite {
+  background-color: #f8a5c2; /* Couleur rouge douce pour favoris */
+  color: #6f1e51;
+}
+
+.product-actions button:hover {
+  background-color: #f3d250; /* Effet interactif */
+  transform: scale(1.1);
+}
+
+.house-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  color: white;
+}
+
+.house-badge.gryffindor {
+  background-color: #7f0909;
+}
+
+.house-badge.hufflepuff {
+  background-color: #eee117;
+  color: black;
+}
+
+.house-badge.ravenclaw {
+  background-color: #000a90;
+}
+
+.house-badge.slytherin {
+  background-color: #1a472a;
+}
