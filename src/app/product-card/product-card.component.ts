@@ -3,25 +3,42 @@ import { Product } from '../product';
 import { ProductService } from '../services/product.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-product-card',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="product-card">
-      <div class="product-header">
-        <h2>{{ product.name }}</h2>
-        <p>Né(e) le : {{ product.createdDate | date: 'longDate':'UTC':'fr' }}</p>
-      </div>
-      <div class="product-actions">
-        <button (click)="toggleFavorite()" [ngClass]="{ 'favorite': product.isFavorite }">
-          {{ product.isFavorite ? '💔 Retirer des Favoris' : '❤️ Ajouter aux Favoris' }}
-        </button>
-      </div>
-      
-      <button (click)="navigateToDetail(product.id)">Voir les détails</button>
-    </div>
+<div class="hp-card">
+  <div class="hp-card-header">
+    <img 
+      class="hp-wizard-image" 
+      [src]="product.imageUrl" 
+      [alt]="product.name"
+    />
+    <h2 class="hp-wizard-name">{{ product.name }}</h2>
+    <p class="hp-created-date">
+      Né(e) le : {{ product.createdDate | date: 'longDate':'UTC':'fr' }}
+    </p>
+  </div>
+
+  <div class="hp-card-footer">
+    <button 
+      class="hp-favorite-button" 
+      (click)="toggleFavorite()" 
+      [ngClass]="{ 'favorite': product.isFavorite }"
+    >
+      {{ product.isFavorite ? '★' : '☆' }}
+    </button>
+
+    <button 
+      class="hp-detail-button" 
+      (click)="navigateToDetail(product.id)"
+    >
+      Voir les détails
+    </button>
+  </div>
+</div>
+
   `,
   styleUrls: ['./product-card.component.css'],
 })
