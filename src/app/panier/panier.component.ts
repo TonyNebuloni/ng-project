@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PanierService } from '../services/panier.service.service';
+import { PanierService } from '../services/panier.service';
 import { Product } from '../product';
 import { CommonModule } from '@angular/common';
 

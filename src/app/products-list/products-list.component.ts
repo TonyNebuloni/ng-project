@@ -41,7 +41,6 @@ import { Router } from '@angular/router';
       ) {
         <app-product-card
           [product]="p"
-          (AddItemEvent)="onAddItemEvent($event)"
         ></app-product-card>
       }
     </div>
