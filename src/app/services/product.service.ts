@@ -14,6 +14,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1980, 6, 31),
       taille: 1.85,
+      prix: 9.99,
     },
     {
       id: 1,
@@ -22,6 +23,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1980, 3, 1),
       taille: 1.85,
+      prix: 10.99,
     },
     {
       id: 2,
@@ -30,6 +32,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1973, 8, 19),
       taille: 1.65,
+      prix: 5,
     },
     {
       id: 3,
@@ -38,6 +41,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1980, 7, 30),
       taille: 1.85,
+      prix: 6.49,
     },
     {
       id: 4,
@@ -46,6 +50,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1881, 7, 30),
       taille: 1.85,
+      prix: 13.50,
     },
     {
       id: 5,
@@ -54,6 +59,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1960, 1, 9),
       taille: 1.85,
+      prix: 11.18,
     },
     {
       id: 6,
@@ -62,6 +68,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1980, 5, 5),
       taille: 1.85,
+      prix: 8.20,
     },
     {
       id: 7,
@@ -70,6 +77,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1981, 2, 13),
       taille: 1.68,
+      prix: 4.60,
     },
     {
       id: 8,
@@ -78,6 +86,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1981, 7, 11),
       taille: 1.75,
+      prix: 7.80,
     },
     {
       id: 9,
@@ -86,6 +95,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1985, 5, 16),
       taille: 1.85,
+      prix: 8.10,
     },
     {
       id: 10,
@@ -94,6 +104,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1987, 8, 8),
       taille: 1.85,
+      prix: 9.99,
     },
     {
       id: 11,
@@ -102,6 +113,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1935, 9, 4),
       taille: 1.78,
+      prix: 12.20,
     },
     {
       id: 12,
@@ -110,6 +122,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1992, 11, 30),
       taille: 4.85,
+      prix: 11.90,
     },
     {
       id: 13,
@@ -118,6 +131,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1960, 10, 11),
       taille: 1.85,
+      prix: 10.20,
     },
     {
       id: 14,
@@ -126,6 +140,7 @@ export class ProductService {
       isFavorite: false,
       createdDate: new Date(1960, 2, 10),
       taille: 1.88,
+      prix: 9.99,
     },
   ];
 

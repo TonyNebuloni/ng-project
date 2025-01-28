@@ -4,5 +4,6 @@ export interface Product {
     isFavorite: boolean,
     createdDate: Date
     taille: number,
-    imageUrl: string
+    imageUrl: string,
+    prix: number
 }
