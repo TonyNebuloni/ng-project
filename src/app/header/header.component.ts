@@ -9,7 +9,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 <header>
   <div class="header-container">
   <div class="favorites">
-      <a routerLink='/panier' routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Panier</a>
+      <a routerLink='/favorites' routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Favoris</a>
     </div>
     <div class="decorative-line"></div>
     
@@ -22,7 +22,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     <div class="decorative-line"></div>
 
     <div class="favorites">
-      <a routerLink='/favorites' routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Favoris</a>
+      <a routerLink='/panier' routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Panier</a>
     </div>
   </div>
 </header>

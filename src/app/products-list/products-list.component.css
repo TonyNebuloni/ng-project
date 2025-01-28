@@ -1,112 +1,82 @@
+/* Style général */
+.separator {
+  height: 2px;
+  background-color: #C49D52;
+  margin: 20px 0;
+}
 
-h1 {
-    font-size: 2.5rem;
-    color: #f5f5f5;
-    text-align: center;
-    margin-bottom: 24px;
-    font-family: 'Georgia', serif; 
-  }
+
+label {
+  color: #C49D52;
+  font-family: 'Cormorant Unicase', serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Champ de recherche avec icône croix */
+#search {
+  background-color: rgb(255, 251, 252);
+  border: 2px solid #C49D52;
+  color: black;
+  font-size: 16px;
+  padding: 10px 35px 10px 10px;
   
-  h2 {
-    color: #f5f5f5; 
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  #search {
-    margin: 16px 5px 32px 5px; 
-    padding: 6px 12px;
-    font-size: 1rem;
-    border: 2px solid #6a1b9a;
-    border-radius: 6px;
-    background-color: #f5f5f5;
-    color: #4a148c;
-    
-  }
-  label {
-    font-weight: bold;
-    margin-right: 8px;
-    font-size: 1.1rem;
-  }
+  font-family: 'Cormorant Unicase', serif;
+  position: relative;
+  outline: none;
+}
+
+#search:focus {
+  border-color: #FFD700;
+}
+
+/* Bouton croix intégré */
+#search + button {
+  background: none;
+  border: none;
+  color: #C49D52;
+  font-size: 20px;
+  position: relative;
+  left: -30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#search + button:hover {
+  color: #FFD700;
+}
+
+/* Sélecteur stylisé */
+#sortOptions {
+  background-color:rgb(255, 251, 252);
+  color: black;
+  border: 2px solid #C49D52;
+  font-size: 16px;
+  padding: 10px;
   
-  select {
-    margin-bottom: 16px;
-    padding: 6px 12px;
-    font-size: 1rem;
-    border: 2px solid #6a1b9a;
-    border-radius: 6px;
-    background-color: #f5f5f5;
-    color: #4a148c;
-  }
-  
-  .card {
-    border: 1px solid #5d4037;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 16px 0;
-    background: linear-gradient(145deg, #f5f5f5, #e0e0e0); /* Légère texture parchemin */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: #d1c4e9; /* Couleur douce pour l'interaction */
-    color: #311b92;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #b39ddb;
-    transform: scale(1.1);
-  }
-  
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); 
-    gap: 20px;
-    margin: 20px;
-  }
-  
-  .product-grid app-product-card {
-    width: 100%;
-  }
-  
-  button:active {
-    background-color: #9575cd;
-    transform: scale(0.95);
-  }
-  
-  select:focus {
-    outline: none;
-    border-color: #8e24aa;
-    box-shadow: 0 0 4px #ba68c8;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 2rem;
-    }
-  
-    .product-grid {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-    }
-  
-    button {
-      font-size: 0.9rem;
-      padding: 8px 16px;
-    }
-  }
-  
+  font-family: 'Cormorant Unicase', serif;
+  appearance: none; /* Cache l'apparence native */
+  cursor: pointer;
+}
+
+#sortOptions:hover {
+  border-color: #FFD700;
+}
+
+/* Sélecteur déroulant */
+#sortOptions::after {
+  content: '▼';
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  color: #C49D52;
+}
+
+/* Style de la grille des produits */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 100px;
+  margin-top: 100px;
+}

@@ -18,11 +18,11 @@ import { Router } from '@angular/router';
     ProductCardComponent,
   ],
   template: `
-    <h2>Favoris : {{ countFav }}</h2>
-
+  <div class="hp-bg">
+    <div class="separator"></div>
     <label for="search">Rechercher :</label>
     <input id="search" [(ngModel)]="searchTerm" />
-    <button (click)="searchTerm = ''">Vider la recherche</button>
+    <button (click)="searchTerm = ''">x</button>
 
     <label for="sortOptions">Trier par :</label>
     <select id="sortOptions" [(ngModel)]="selectedSortOption">
