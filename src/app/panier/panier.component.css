@@ -1,0 +1,137 @@
+/* Conteneur principal */
+.panier-container {
+    background-size: cover;
+    border: 2px solid #c49d52; /* Couleur marron foncé */
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    font-family: 'Cormorant Unicase', serif; /* Police style Harry Potter */
+    color: #3b1c02;
+  }
+  
+  /* Titre du panier */
+  .panier-header {
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  
+  /* Liste des produits */
+  .panier-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Chaque produit */
+  .panier-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid #c49d52;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Image produit */
+  .panier-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid #4b1f04;
+    border-radius: 4px;
+    margin-right: 12px;
+  }
+  
+  /* Infos produit */
+  .panier-item-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .panier-item-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .panier-item-price {
+    font-size: 1rem;
+    color: #5c4531;
+  }
+  
+  /* Quantité */
+  .panier-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .quantity-button {
+    background-color: #4b1f04;
+    color: #f1e1c6;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .quantity-button:hover {
+    background-color: #6b3f0e;
+  }
+  
+  .quantity-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3b1c02;
+  }
+  
+  /* Bouton supprimer */
+  .remove-button {
+    background-color: #d9534f;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .remove-button:hover {
+    background-color: #c9302c;
+  }
+  
+  /* Bouton vider le panier */
+  .clear-panier {
+    background-color: #4b1f04;
+    color: #f1e1c6;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    transition: background-color 0.2s ease;
+    text-align: center;
+  }
+  
+  .clear-panier:hover {
+    background-color: #6b3f0e;
+  }
+  

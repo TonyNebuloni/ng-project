@@ -3,6 +3,7 @@ import { Product } from '../product';
 import { ProductService } from '../services/product.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { PanierService } from '../services/panier.service';
 
 @Component({
   selector: 'app-product-card',
@@ -66,7 +67,7 @@ export class ProductCardComponent {
 
   private productService = inject(ProductService);
   private router = inject(Router);
-
+  private panierService = inject(PanierService);
   /**
    * Naviguer vers la page de détail d'un produit
    */
@@ -84,10 +85,9 @@ export class ProductCardComponent {
     this.favoriteChanged.emit(updatedStatus ? 1 : -1);
   }
 
-  /**
-   * Émet l'événement vers le parent pour ajouter au panier
-   */
   onAddToPanier() {
+    this.panierService.addToPanier(this.product);
     this.addToPanierEvent.emit(this.product);
   }
+
 }
