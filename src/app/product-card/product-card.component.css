@@ -1,6 +1,5 @@
 .hp-card {
   /* Fond parchemin */
-  background: url('/assets/images/parchment-background.jpg') no-repeat center center;
   background-size: cover;
   border: 2px solid #c49d52;      /* Couleur marron foncé */
   
