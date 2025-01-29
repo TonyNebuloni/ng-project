@@ -1,0 +1,284 @@
+/* Conteneur principal */
+.panier-container {
+  background: #111; /* Noir profond */
+  border: 2px solid #d4af37; /* Gold */
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(212, 175, 55, 0.5); /* Ombre dorée */
+  font-family: 'Cormorant Unicase', serif; /* Style noble */
+  color: #d4af37; /* Gold */
+}
+
+/* Titre du panier */
+.panier-header {
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+  font-weight: bold;
+  color: #ffcc00; /* Gold lumineux */
+}
+
+/* Liste des produits */
+.panier-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Chaque produit */
+.panier-item {
+  background: rgba(34, 34, 34, 0.9); /* Fond noir intense */
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.4);
+}
+
+/* Image produit */
+.panier-item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid #d4af37;
+  border-radius: 6px;
+  margin-right: 12px;
+}
+
+/* Infos produit */
+.panier-item-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.panier-item-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.panier-item-price {
+  font-size: 1.1rem;
+  color: #d4af37;
+}
+
+/* Quantité */
+.panier-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-button {
+  background: linear-gradient(145deg, #d4af37, #ffcc00);
+  color: #111;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: bold;
+}
+
+.quantity-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.6);
+}
+
+.quantity-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+/* Bouton supprimer */
+.remove-button {
+  background: #b30000;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.remove-button:hover {
+  background: #ff0000;
+  transform: scale(1.1);
+}
+
+/* Bouton vider le panier */
+.clear-panier {
+  background: linear-gradient(145deg, #d4af37, #ffcc00);
+  color: #111;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.clear-panier:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(212, 175, 55, 0.7);
+}
+
+/* --- Styles Existants --- */
+/* (Votre CSS précédent pour le panier) */
+
+/* --- Styles pour le Formulaire de Commande --- */
+.commande-form {
+  margin-top: 40px;
+  padding: 20px;
+  border: 2px solid #c2a16c;
+  border-radius: 8px;
+  background-color: #111; /* Fond légèrement différent pour distinguer le formulaire */
+}
+
+.commande-form h2 {
+  margin-bottom: 20px;
+  color: #c2a16c;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #c2a16c;
+}
+
+.form-input,
+.form-textarea {
+  padding: 10px;
+  border: 2px solid #c2a16c;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
+  font-size: 16px;
+  resize: vertical;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #ffcc00;
+  background-color: #333;
+}
+
+.commander-button {
+  background-color: #c2a16c;
+  border: none;
+  color: #000;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.commander-button:hover {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+.commander-button:disabled {
+  background-color: #555;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* --- Styles pour la Popup de Succès --- */
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Au-dessus de tout le reste */
+}
+
+.popup-content {
+  background-color: #111;
+  padding: 30px;
+  border: 2px solid #c2a16c;
+  border-radius: 8px;
+  text-align: center;
+  color: #fff;
+  max-width: 400px;
+  width: 80%;
+}
+
+.popup-content h2 {
+  margin-bottom: 20px;
+  color: #c2a16c;
+}
+
+.popup-content p {
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.close-popup {
+  background-color: #c2a16c;
+  border: none;
+  color: #000;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.close-popup:hover {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+/* --- Responsivité pour le Formulaire et la Popup --- */
+@media (max-width: 768px) {
+  .commande-form {
+    padding: 15px;
+  }
+
+  .popup-content {
+    padding: 20px;
+  }
+
+  .commander-button,
+  .close-popup {
+    width: 100%;
+  }
+}

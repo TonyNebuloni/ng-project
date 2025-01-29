@@ -16,9 +16,9 @@ label {
 
 /* Champ de recherche avec icône croix */
 #search {
-  background-color: rgb(255, 251, 252);
+  background-color: rgb(3, 3, 3);
   border: 2px solid #C49D52;
-  color: black;
+  color: white;
   font-size: 16px;
   padding: 10px 35px 10px 10px;
   
@@ -29,7 +29,7 @@ label {
 
 #search:focus {
   border-color: #FFD700;
-}
+} 
 
 /* Bouton croix intégré */
 #search + button {
@@ -49,8 +49,8 @@ label {
 
 /* Sélecteur stylisé */
 #sortOptions {
-  background-color:rgb(255, 251, 252);
-  color: black;
+  background-color:rgb(3,3,3);
+  color: rgb(99, 99, 99);
   border: 2px solid #C49D52;
   font-size: 16px;
   padding: 10px;
@@ -77,6 +77,6 @@ label {
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 100px;
+  gap: 10px;
   margin-top: 100px;
 }

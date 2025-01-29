@@ -15,7 +15,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     
     <div class="logo">
       <a routerLink='/' routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
-      <img src="/assets/images/logo.png" alt="Logo" >
+      <img src="/assets/images/logo2.png" alt="Logo" >
 </a>
     </div>
     
@@ -31,7 +31,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styles: [
     `
 header {
-  background-color: rgb(255, 251, 252); /* Bleu nuit comme l'image */
+  background-color: rgb(3,3,3); /* Bleu nuit comme l'image */
   padding: 15px 0;
 }
 

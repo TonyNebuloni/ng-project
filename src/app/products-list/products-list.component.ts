@@ -21,8 +21,9 @@ import { Router } from '@angular/router';
   <div class="hp-bg">
     <div class="separator"></div>
     <label for="search">Rechercher :</label>
-    <input id="search" [(ngModel)]="searchTerm" />
-    <button (click)="searchTerm = ''">x</button>
+<input id="search" [(ngModel)]="searchTerm" placeholder="Ex: Harry Potter" />
+<button (click)="searchTerm = ''">x</button>
+
 
     <label for="sortOptions">Trier par :</label>
     <select id="sortOptions" [(ngModel)]="selectedSortOption">

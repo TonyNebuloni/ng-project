@@ -1,88 +1,166 @@
+/***********************************************/
+/*    1) GESTION GLOBALE DE LA CARTE « 3D »    */
+/***********************************************/
 .hp-card {
-  /* Fond parchemin */
-  background-size: cover;
-  border: 2px solid #c49d52;      /* Couleur marron foncé */
+  /* On donne une largeur fixe et on centre la carte */
+  width: 300px;
+  margin: 2rem auto;
   
-  padding: 16px;
-  max-width: 300px;
-  margin: 16px auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  font-family: 'Cormorant Unicase', serif; /* Police style Harry Potter */
+  /* On active la perspective pour l’effet 3D */
+  perspective: 800px;
+
+  /* Petit rayon sur les coins + ombre discrète */
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+  /* Transition d’animation (pour le survol) */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Contenant interne qui va « pivoter » au survol */
+.hp-card-content {
+  /* On active la 3D à l’intérieur */
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  border-radius: 8px;
+  overflow: hidden; /* pour gérer l’image & le contenu */
+}
+
+/* Survol : on inclut un léger effet de rotation */
+.hp-card:hover .hp-card-content {
+  transform: rotateX(8deg) rotateY(-5deg);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+/***********************************************/
+/*        2) COULEURS PAR « MAISON »           */
+/***********************************************/
+/* 
+   On utilise un dégradé pour chaque maison. 
+   Tu peux ajuster ces couleurs à ta guise.
+*/
+.hp-card.gryffondor .hp-card-content {
+  background: linear-gradient(135deg, #7f0909, #d3a625);
+  color: #f1e1c6;
+}
+.hp-card.durmstrang .hp-card-content {
+  background: linear-gradient(135deg, #7f0909, #360b0b);
+  color: #f1e1c6;
+}
+.hp-card.serpentard .hp-card-content {
+  background: linear-gradient(135deg, #1A472A, #2A623D);
+  color: #f1e1c6;
+}
+
+.hp-card.serdaigle .hp-card-content {
+  background: linear-gradient(135deg, #0E1A40, #946B2D);
+  color: #f1e1c6;
+}
+.hp-card.beauxbâtons .hp-card-content {
+  background: linear-gradient(135deg, #4e609b, #8aa0a7);
+  color: #f1e1c6;
+}
+
+.hp-card.poufsouffle .hp-card-content {
+  background: linear-gradient(135deg, #ffdb00, #60605c);
   color: #3b1c02;
-  height: 40vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
+/***********************************************/
+/*        3) ELEMENTS INTÉRIEURS               */
+/***********************************************/
+
+/* Bouton favori (étoile) */
+.hp-favorite-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #ffc107; /* Doré par défaut */
+  transition: transform 0.2s ease;
+  z-index: 999999;
+}
+
+/* Agrandissement discret au survol */
+.hp-favorite-button:hover {
+  transform: scale(1.3);
+}
+
+/* 
+   Si tu veux indiquer graphiquement l'état favori, 
+   tu peux ajouter une .favorite ou gérer une autre couleur 
+   tant que tu restes cohérent.
+*/
+.hp-favorite-button.favorite {
+  color: #ffff00; /* Jaune plus clair ou autre */
+}
+
+/* Image : on remplit la largeur de la carte */
+.hp-wizard-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  /* Légère transition d’opacité */
+  transition: opacity 0.3s ease;
+}
+
+.hp-wizard-image:hover {
+  opacity: 0.9;
+}
+
+/* En-tête : nom, maison, prix */
 .hp-card-header {
+  padding: 1rem;
   text-align: center;
-  margin-bottom: 12px;
-
-  .hp-wizard-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    
-    border: 3px solid #4b1f04;
-    margin-bottom: 8px;
-  }
-
-  .hp-wizard-name {
-    font-size: 1.4rem;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .hp-created-date {
-    font-size: 0.9rem;
-    color: #5c4531;
-  }
+  font-family: 'Cormorant Unicase', serif;
 }
 
-.hp-card-body {
-  .hp-description {
-    font-size: 1rem;
-    margin: 0 0 12px;
-    text-align: center;
-  }
+.hp-wizard-name {
+  margin: 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.3rem;
 }
 
-.hp-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.hp-wizard-maison {
+  margin: 0.2rem 0;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* Prix : un peu mis en avant */
+.hp-wizard-price {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* Bouton "Ajouter au panier" */
+.hp-add-to-cart {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
   
-  .hp-favorite-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+  /* Couleur lisible selon la carte */
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #f1e1c6;
+  border: none;
+  border-radius: 4px;
 
-    &.favorite {
-      color: #ffc107; /* Couleur or pour l’étoile favorite */
-    }
+  /* Animation simple */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
-    &:hover {
-      transform: scale(1.2);
-    }
-  }
-
-  .hp-detail-button {
-    background-color: #4b1f04;
-    color: #f1e1c6;
-    padding: 6px 12px;
-    border: none;
-    
-    font-family: inherit;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: #6b3f0e;
-    }
-  }
+.hp-add-to-cart:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  transform: translateY(-3px);
 }
