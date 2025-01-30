@@ -167,3 +167,8 @@ app.get('/products', (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.json(product);
 });
+
+app.get('/products/:id', (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.json(product.find((p) => p.id == req.params.id))
+});

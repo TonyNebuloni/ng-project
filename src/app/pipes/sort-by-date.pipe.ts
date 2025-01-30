@@ -6,10 +6,18 @@ import { Product } from '../product';
 })
 export class SortByDatePipe implements PipeTransform {
 
-  transform(products: Product[], asc?: boolean) {
+  transform(products: Product[], asc: boolean = true): Product[] {
+    if (!products) return [];
+
     return products.sort((a, b) => {
-      return asc ? a.createdDate.getTime() - b.createdDate.getTime() : b.createdDate.getTime() - a.createdDate.getTime();
+      const dateA = new Date(a.createdDate);
+      const dateB = new Date(b.createdDate);
+      
+      if (asc) {
+        return dateA.getTime() - dateB.getTime();
+      } else {
+        return dateB.getTime() - dateA.getTime();
+      }
     });
   }
-
 }

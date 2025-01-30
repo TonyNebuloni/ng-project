@@ -2,7 +2,7 @@ export interface Product {
     id: number,
     name: string,
     isFavorite: boolean,
-    createdDate: Date
+    createdDate: Date,
     taille: number,
     imageUrl: string,
     prix: number,
