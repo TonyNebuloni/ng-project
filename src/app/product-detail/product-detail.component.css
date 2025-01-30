@@ -1,39 +1,271 @@
+/* --- Mise en page globale --- */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000; /* Fond noir demandé */
+  font-family: sans-serif;
+  color: #fff; /* Couleur par défaut du texte en blanc pour contraster sur fond noir */
+}
+
+/* --- Conteneur principal du détail du produit --- */
 .product-detail {
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-    max-width: 400px;
-    margin: 20px auto;
+  position: relative;
+  width: 80%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 40px;
+  border: 2px solid #c2a16c; /* Bordure dorée autour du cadre */
+  display: flex;             /* Permet de mettre l'image et les infos côte à côte */
+  gap: 24px;                 /* Espace entre l'image et le texte */
+  box-sizing: border-box;
+}
+
+/* --- Zone d'affichage de l'image du produit --- */
+.product-image-container {
+  position: relative;
+  flex: 0 0 50%;             /* L’image prend environ la moitié de la largeur */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Zone d'informations texte (nom, maison, prix...) --- */
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
+}
+
+/* --- Titre + Maison --- */
+.product-header {
+  margin-bottom: 16px;
+  width: 100%;
+  text-align: right;
+}
+.product-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #c2a16c; /* Texte doré */
+}
+.product-house {
+  font-style: italic;
+  font-size: 16px;
+  color: #ddd; /* Gris clair */
+  margin-top: 4px;
+}
+
+.product-date {
+  font-size: 18px;
+  margin-top: 4px;
+  font-weight: bold;
+}
+
+/* --- Texte descriptif (ex: Favori, Taille) --- */
+.product-body {
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.product-body p {
+  margin: 8px 0;
+}
+
+/* --- Boutons d'action (ajout favori, retour, etc.) --- */
+.product-actions {
+  margin-top: auto; /* Force les boutons en bas si la colonne est haute */
+  display: flex;
+  margin-top: 50%;
+  align-items: center;
+  gap: 20px;
+  flex-direction: row-reverse;
+  /* Suppression de margin-top: 50%; car cela peut causer des problèmes de mise en page */
+}
+
+.product-actions button {
+  background-color: transparent;
+  border: 2px solid #c2a16c;
+  color: #c2a16c;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.product-actions button:hover {
+  background-color: #c2a16c;
+  color: #000;
+}
+
+/* Variation si le bouton est en mode "favorite" (rouge) */
+.product-actions button.favorite {
+  border-color: #ff6666;
+  color: #ff6666;
+}
+.product-actions button.favorite:hover {
+  background-color: #ff6666;
+  color: #fff;
+}
+
+/* --- Bouton "Retour" hors du cadre, si souhaité --- */
+.back-button {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 20px auto;
+  background-color: #444;
+  border: 1px solid #666;
+  padding: 8px 16px;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+.back-button:hover {
+  background-color: #666;
+}
+
+/* --- Mise en forme d’un bloc « non trouvé » --- */
+.product-detail ~ p,
+.product-detail ~ button {
+  text-align: center;
+  margin-top: 24px;
+  color: #fff;
+}
+
+/* --- Exemple de gestion par "Maison" pour changer le style du bloc --- */
+.product-detail.gryffindor {
+  border-color: #ae0001;
+}
+.product-detail.slytherin {
+  border-color: #2a623d;
+}
+.product-detail.ravenclaw {
+  border-color: #0e1a40;
+}
+.product-detail.hufflepuff {
+  border-color: #ecb939;
+}
+
+/* --- Exemple de losanges (diamonds) verticaux comme dans l'image fournie --- */
+/* Conteneur pour les losanges à droite du cadre */
+.diamond-container {
+  position: absolute;
+  top: 40px;
+  right: -50px; /* Sort un peu du cadre si nécessaire */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Forme de losange */
+.diamond {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #c2a16c;
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+/* Le contenu texte ou icône à l’intérieur est remis droit */
+.diamond span {
+  transform: rotate(-45deg);
+  display: inline-block;
+  color: #c2a16c;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Exemple de style si c’est la « star » pour le favori */
+.diamond.star span {
+  font-size: 24px; /* Étoile plus grande */
+}
+
+/* --- Styles Additionnels pour la Quantité --- */
+
+/* Label pour la quantité */
+.product-actions label[for="quantity"] {
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #c2a16c; /* Texte doré */
+}
+
+/* Input de quantité */
+.quantity-input {
+  width: 60px;
+  padding: 8px;
+  border: 2px solid #c2a16c;
+  border-radius: 4px;
+  background-color: #222; /* Fond sombre pour contraster */
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.quantity-input:focus {
+  outline: none;
+  border-color: #ffcc00; /* Couleur de focus dorée */
+  background-color: #333; /* Légère modification du fond lors du focus */
+}
+
+/* Boutons de quantité dans le Panier (si nécessaire) */
+.panier-item button {
+  background-color: transparent;
+  border: 2px solid #c2a16c;
+  color: #c2a16c;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.panier-item button:hover {
+  background-color: #c2a16c;
+  color: #000;
+}
+
+/* --- Responsivité --- */
+@media (max-width: 768px) {
+  .product-detail {
+    flex-direction: column;
+    padding: 20px;
   }
-  
-  .product-header h1 {
-    margin: 0;
-    color: #333;
+
+  .product-image-container,
+  .product-info {
+    flex: 1 1 100%;
   }
-  
-  .product-body p {
-    margin: 8px 0;
-  }
-  
+
   .product-actions {
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 4px;
-    cursor: pointer;
+
+  .quantity-input {
+    width: 100%;
+    max-width: 100px;
+    margin: 0 auto;
   }
-  
-  button.favorite {
-    background-color: #dc3545;
+
+  .product-actions label[for="quantity"] {
+    text-align: center;
+    width: 100%;
   }
-  
-  button:hover {
-    opacity: 0.9;
-  }
-  
+}

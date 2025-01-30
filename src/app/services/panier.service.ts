@@ -1,3 +1,4 @@
+// panier.service.ts
 import { Injectable } from '@angular/core';
 import { Product } from '../product';
 
@@ -30,8 +31,9 @@ export class PanierService {
   /**
    * Ajouter un produit au panier ou augmenter la quantité si déjà présent.
    * @param product Produit à ajouter
+   * @param quantity Quantité à ajouter (par défaut 1)
    */
-  addToPanier(product: Product): void {
+  addToPanier(product: Product, quantity: number = 1): void {
     if (!product || !product.id) {
       console.error('Produit invalide ou sans ID :', product);
       return;
@@ -44,10 +46,10 @@ export class PanierService {
 
     if (existingItem) {
       // Augmente la quantité si le produit existe déjà
-      existingItem.quantity += 1;
+      existingItem.quantity += quantity;
     } else {
-      // Ajoute un nouveau produit avec une quantité initiale de 1
-      panier.push({ product, quantity: 1 });
+      // Ajoute un nouveau produit avec la quantité spécifiée
+      panier.push({ product, quantity });
     }
 
     this.savePanier(panier);

@@ -5,5 +5,6 @@ export interface Product {
     createdDate: Date
     taille: number,
     imageUrl: string,
-    prix: number
+    prix: number,
+    maison: string
 }

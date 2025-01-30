@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PanierService, PanierItem } from '../services/panier.service';
 import { Product } from '../product';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Import nécessaire pour ngModel
 
 @Component({
   selector: 'app-panier',
-  imports:[CommonModule],
+  imports: [CommonModule, FormsModule], // Ajout de FormsModule
   template: `
     <div class="panier-container">
       <h1 class="panier-header">Votre Panier</h1>
@@ -21,7 +22,7 @@ import { CommonModule } from '@angular/common';
           <div class="panier-item-info">
             <h3 class="panier-item-title">{{ item.product.name }}</h3>
             <p class="panier-item-price">
-              {{ item.product.prix }}
+              {{ item.product.prix }} €
             </p>
           </div>
           <div class="panier-item-quantity">
@@ -41,7 +42,36 @@ import { CommonModule } from '@angular/common';
 
       <!-- Affichage du prix total -->
       <div class="panier-total" *ngIf="panierItems.length > 0">
-        <h2>Total : {{ getTotalPrice() }}</h2>
+        <h2>Total : {{ getTotalPrice() }} €</h2>
+      </div>
+
+      <!-- Formulaire de commande -->
+      <div *ngIf="panierItems.length > 0" class="commande-form">
+        <h2>Passer la Commande</h2>
+        <form (ngSubmit)="submitOrder()" #orderForm="ngForm">
+          <div class="form-group">
+            <label for="name">Nom :</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              [(ngModel)]="order.name" 
+              required 
+              class="form-input"
+            />
+          </div>
+          <div class="form-group">
+            <label for="address">Adresse :</label>
+            <textarea 
+              id="address" 
+              name="address" 
+              [(ngModel)]="order.address" 
+              required 
+              class="form-textarea"
+            ></textarea>
+          </div>
+          <button type="submit" class="commander-button" [disabled]="!orderForm.form.valid">Commander</button>
+        </form>
       </div>
 
       <!-- Bouton pour vider le panier -->
@@ -52,12 +82,26 @@ import { CommonModule } from '@angular/common';
 
       <!-- Message si le panier est vide -->
       <p *ngIf="panierItems.length === 0">Votre panier est vide.</p>
+
+      <!-- Popup de succès -->
+      <div class="success-popup" *ngIf="showSuccessPopup">
+        <div class="popup-content">
+          <h2>Commande Réussie !</h2>
+          <p>Merci {{ order.name }} pour votre commande.</p>
+          <button (click)="closePopup()" class="close-popup">Fermer</button>
+        </div>
+      </div>
     </div>
   `,
   styleUrls: ['./panier.component.css'],
 })
 export class PanierComponent implements OnInit {
   panierItems: PanierItem[] = [];
+  order = {
+    name: '',
+    address: ''
+  };
+  showSuccessPopup: boolean = false;
 
   constructor(private panierService: PanierService) {}
 
@@ -113,5 +157,21 @@ export class PanierComponent implements OnInit {
     }, 0);
 
     return total.toFixed(2);
+  }
+
+  /**
+   * Soumet la commande et affiche la popup de succès.
+   */
+  submitOrder(): void {
+    // Vous pouvez ajouter ici une logique pour traiter la commande (ex: envoyer au backend)
+    this.showSuccessPopup = true;
+    this.clearPanier();
+  }
+
+  /**
+   * Ferme la popup de succès.
+   */
+  closePopup(): void {
+    this.showSuccessPopup = false;
   }
 }
