@@ -8,3 +8,5 @@ export interface Product {
     prix: number,
     maison: string
 }
+
+//carte pokemon id, name, iamge.large, hp, attacks[], type[], rarity, cardmarket.prices.averageSellPrice
