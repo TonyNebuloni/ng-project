@@ -112,6 +112,6 @@ export class PanierComponent implements OnInit {
       return sum + item.product.prix * item.quantity;
     }, 0);
 
-    return total.toFixed(2); // Arrondir à 2 chiffres après la virgule
+    return total.toFixed(2);
   }
 }
