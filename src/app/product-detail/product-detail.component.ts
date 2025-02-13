@@ -1,130 +1,88 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { catchError, of } from 'rxjs';
-
-import { Product } from '../product';
-import { ProductService } from '../services/product.service';
+import { Pokemon, PokemonService } from '../services/product.service';
 import { PanierService } from '../services/panier.service';
 
 @Component({
-  selector: 'app-product-detail',
+  selector: 'app-pokemon-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   template: `
-    <div
-      *ngIf="product; else notFound"
-      class="product-detail"
-      [ngClass]="product.maison"
-    >
-      <div class="product-image-container">
-        <img
-          [src]="product.imageUrl"
-          [alt]="product.name"
-          class="product-image"
-        />
+    <div *ngIf="pokemon; else notFound" class="pokemon-detail">
+      <div class="pokemon-image-container">
+        <img [src]="pokemon.images.large" [alt]="pokemon.name" class="pokemon-image" />
       </div>
-      <div class="product-header">
-        <h1>{{ product.name }}</h1>
-        <p class="product-house">
-          Maison : <strong>{{ product.maison }}</strong>
-        </p>
-        <p class="product-date">Prix: {{ product.prix }} €</p>
-
-        <div class="product-actions">
-          <input
-            type="number"
-            id="quantity"
-            [(ngModel)]="quantity"
-            min="1"
-            class="quantity-input"
-          />
+      <div class="pokemon-header">
+        <h1>{{ pokemon.name }}</h1>
+        <p>HP: {{ pokemon.hp }}</p>
+        <p>Type: {{ pokemon.types.join(', ') }}</p>
+        <p>Rareté: {{ pokemon.rarity }}</p>
+        <p>Prix: {{ pokemon.cardmarket?.prices?.averageSellPrice || 'N/A' }} €</p>
+        <p *ngIf="pokemon?.evolvesTo?.length">Évolue vers: <a [routerLink]="['/pokemon', pokemon.evolvesTo?.[0]]">{{ pokemon.evolvesTo?.[0] }}</a></p>
+        
+        <div class="pokemon-actions">
+          <input type="number" id="quantity" [(ngModel)]="quantity" min="1" class="quantity-input" />
           <label for="quantity">Quantité</label>
-          <button class="hp-add-to-cart" (click)="onAddToPanier()">
-            Ajouter au panier
-          </button>
-          <button class="back-button" (click)="goBack()" style="margin: 0;">
-            Retour à la liste
-          </button>
+          <button class="add-to-cart" (click)="onAddToPanier()">Ajouter au panier</button>
+          <button class="back-button" (click)="goBack()">Retour à la liste</button>
         </div>
       </div>
     </div>
 
     <ng-template #notFound>
-      <p>Produit introuvable ou ID invalide.</p>
+      <p>Pokémon introuvable ou ID invalide.</p>
       <button (click)="goBack()">Retour à la liste</button>
     </ng-template>
   `,
   styleUrls: ['./product-detail.component.css'],
 })
-export class ProductDetailComponent implements OnInit {
-  product: Product | null = null;
-  quantity = 1; // Propriété pour la quantité
+export class PokemonDetailComponent implements OnInit {
+  pokemon: Pokemon | null = null;
+  quantity = 1;
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private productService = inject(ProductService);
+  private pokemonService = inject(PokemonService);
   private panierService = inject(PanierService);
 
   ngOnInit() {
-    this.loadProduct();
+    this.loadPokemon();
   }
 
-  /**
-   * Charge le produit à partir de l'ID de l'URL
-   */
-  private loadProduct() {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    const id = Number(idParam);
-
-    if (isNaN(id)) {
-      console.error(`ID invalide : ${idParam}`);
-      this.handleInvalidProduct();
+  private loadPokemon() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) {
+      console.error('ID invalide:', id);
+      this.handleInvalidPokemon();
       return;
     }
 
-    // 1) getProductById(id) now returns Observable<Product | null>
-    // 2) We catch errors => return of(null)
-    // 3) In subscribe, we handle the "null" or valid product scenario
-    this.productService
-      .getProductById(id)
+    this.pokemonService.getPokemonById(id)
       .pipe(
         catchError((error) => {
-          console.error('Erreur lors de la récupération du produit:', error);
+          console.error('Erreur lors de la récupération du Pokémon:', error);
           return of(null);
         })
       )
-      .subscribe({
-        next: (fetchedProduct: Product | null) => {
-          if (!fetchedProduct) {
-            console.error(`Produit avec l'ID ${id} introuvable.`);
-            this.handleInvalidProduct();
-          } else {
-            this.product = fetchedProduct;
-          }
-        },
-        error: (err) => {
-          console.error('Erreur lors de la récupération du produit:', err);
-          this.handleInvalidProduct();
-        },
+      .subscribe((fetchedPokemon) => {
+        if (!fetchedPokemon) {
+          console.error(`Pokémon avec l'ID ${id} introuvable.`);
+          this.handleInvalidPokemon();
+        } else {
+          this.pokemon = fetchedPokemon;
+        }
       });
   }
 
-  toggleFavorite() {
-    if (this.product) {
-      const newFavoriteStatus = this.productService.toggleFavorite(
-        this.product.id
-      );
-      this.product.isFavorite = newFavoriteStatus;
-    }
-  }
 
-  private handleInvalidProduct() {
-    // Example: redirect back to home after half a second
+
+  private handleInvalidPokemon() {
     setTimeout(() => {
       this.router.navigate(['/']);
-    }, 50000);
+    }, 5000);
   }
 
   goBack() {
@@ -132,9 +90,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onAddToPanier() {
-    if (this.product && this.quantity > 0) {
-      this.panierService.addToPanier(this.product, this.quantity);
-      alert(`${this.quantity} ${this.product.name} ajouté(s) au panier.`);
+    if (this.pokemon && this.quantity > 0) {
+      this.panierService.addToPanier(this.pokemon, this.quantity);
+      alert(`${this.quantity} ${this.pokemon.name} ajouté(s) au panier.`);
     } else {
       alert('Veuillez sélectionner une quantité valide.');
     }
