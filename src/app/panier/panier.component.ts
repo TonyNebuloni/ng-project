@@ -153,7 +153,7 @@ export class PanierComponent implements OnInit {
    */
   getTotalPrice(): string {
     const total = this.panierItems.reduce((sum, item) => {
-      return sum + item.product.prix * item.quantity;
+      return sum + ((item.pokemon.cardmarket?.prices?.averageSellPrice || 0) * item.quantity);
     }, 0);
 
     return total.toFixed(2);
