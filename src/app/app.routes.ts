@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { ProductsListComponent } from './products-list/products-list.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { PokemonListComponent } from './products-list/products-list.component';
+import { PokemonDetailComponent } from './product-detail/product-detail.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { PanierComponent } from './panier/panier.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: ProductsListComponent
+        component: PokemonListComponent
     },
       {
         path: 'favorites',
@@ -19,7 +19,7 @@ export const routes: Routes = [
     },
     {
         path: ':id',
-        component: ProductDetailComponent
+        component: PokemonDetailComponent
     },
   
 
