@@ -1,9 +1,8 @@
-// panier.service.ts
 import { Injectable } from '@angular/core';
-import { Product } from '../product';
+import { Pokemon } from '../services/product.service';
 
 export interface PanierItem {
-  product: Product;
+  pokemon: Pokemon;
   quantity: number;
 }
 
@@ -15,9 +14,6 @@ export class PanierService {
 
   constructor() {}
 
-  /**
-   * Récupérer les items du panier depuis localStorage.
-   */
   getPanierItems(): PanierItem[] {
     try {
       const storedData = localStorage.getItem(this.PANIER_KEY);
@@ -28,89 +24,57 @@ export class PanierService {
     }
   }
 
-  /**
-   * Ajouter un produit au panier ou augmenter la quantité si déjà présent.
-   * @param product Produit à ajouter
-   * @param quantity Quantité à ajouter (par défaut 1)
-   */
-  addToPanier(product: Product, quantity: number = 1): void {
-    if (!product || !product.id) {
-      console.error('Produit invalide ou sans ID :', product);
+  addToPanier(pokemon: Pokemon, quantity: number = 1): void {
+    if (!pokemon || !pokemon.id) {
+      console.error('Pokémon invalide ou sans ID :', pokemon);
       return;
     }
 
     const panier = this.getPanierItems();
-
-    // Vérifie si le produit existe déjà dans le panier
-    const existingItem = panier.find(item => item.product.id === product.id);
+    const existingItem = panier.find(item => item.pokemon.id === pokemon.id);
 
     if (existingItem) {
-      // Augmente la quantité si le produit existe déjà
       existingItem.quantity += quantity;
     } else {
-      // Ajoute un nouveau produit avec la quantité spécifiée
-      panier.push({ product, quantity });
+      panier.push({ pokemon, quantity });
     }
 
     this.savePanier(panier);
   }
 
-  /**
-   * Réduire la quantité d'un produit ou le retirer si la quantité atteint 0.
-   * @param productId ID du produit
-   */
-  removeOneFromPanier(productId: number): void {
-    if (!productId) {
-      console.error('ID de produit invalide :', productId);
+  removeOneFromPanier(pokemonId: string): void {
+    if (!pokemonId) {
+      console.error('ID de Pokémon invalide :', pokemonId);
       return;
     }
 
     const panier = this.getPanierItems();
-
-    const existingItem = panier.find(item => item.product.id === productId);
+    const existingItem = panier.find(item => item.pokemon.id === pokemonId);
 
     if (existingItem) {
-      // Réduit la quantité
       existingItem.quantity -= 1;
-
-      // Supprime complètement l'élément si la quantité est <= 0
       if (existingItem.quantity <= 0) {
-        this.removeFromPanier(productId);
+        this.removeFromPanier(pokemonId);
         return;
       }
     }
-
     this.savePanier(panier);
   }
 
-  /**
-   * Supprimer complètement un produit du panier.
-   * @param productId ID du produit
-   */
-  removeFromPanier(productId: number): void {
-    if (!productId) {
-      console.error('ID de produit invalide :', productId);
+  removeFromPanier(pokemonId: string): void {
+    if (!pokemonId) {
+      console.error('ID de Pokémon invalide :', pokemonId);
       return;
     }
 
-    const panier = this.getPanierItems().filter(
-      item => item.product.id !== productId
-    );
-
+    const panier = this.getPanierItems().filter(item => item.pokemon.id !== pokemonId);
     this.savePanier(panier);
   }
 
-  /**
-   * Vider tout le panier.
-   */
   clearPanier(): void {
     localStorage.removeItem(this.PANIER_KEY);
   }
 
-  /**
-   * Sauvegarder le panier dans localStorage.
-   * @param panier Liste des items à sauvegarder
-   */
   private savePanier(panier: PanierItem[]): void {
     try {
       localStorage.setItem(this.PANIER_KEY, JSON.stringify(panier));

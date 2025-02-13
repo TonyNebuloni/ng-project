@@ -1,120 +1,98 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  inject,
-  OnInit
-} from '@angular/core';
-import { ProductService } from '../services/product.service';
-import { SortByDatePipe } from '../pipes/sort-by-date.pipe';
-import { SortByNamePipe } from '../pipes/sort-by-name.pipe';
-import { SearchByNamePipe } from '../pipes/searchbyname.pipe';
+import { Component, OnInit, inject } from '@angular/core';
+import { PokemonService, Pokemon } from '../services/product.service';
+import { PanierService } from '../services/panier.service';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProductCardComponent } from '../product-card/product-card.component';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-products-list',
+  selector: 'app-pokemon-list',
   standalone: true,
-  imports: [
-    FormsModule,
-    SortByDatePipe,
-    SortByNamePipe,
-    SearchByNamePipe,
-    ProductCardComponent,
-  ],
+  imports: [FormsModule, CommonModule, RouterLink],
   template: `
-    <div class="hp-bg">
+    <div class="pokemon-bg">
       <div class="separator"></div>
       <label for="search">Rechercher :</label>
       <input
         id="search"
         [(ngModel)]="searchTerm"
-        placeholder="Ex: Harry Potter"
+        placeholder="Ex: Bulbasaur"
       />
       <button (click)="searchTerm = ''">x</button>
 
       <label for="sortOptions">Trier par :</label>
       <select id="sortOptions" [(ngModel)]="selectedSortOption">
-        @for (option of sortOptions; track option.value) {
-          <option [value]="option.value">{{ option.label }}</option>
-        }
+        <option value="nameAsc">Nom (A-Z)</option>
+        <option value="nameDesc">Nom (Z-A)</option>
+        <option value="hpAsc">HP (Croissant)</option>
+        <option value="hpDesc">HP (Décroissant)</option>
       </select>
 
-      <div class="product-grid">
-        @for (
-          p of products
-            | searchByName: searchTerm
-            | sortByName: (selectedSortOption === 'nameAsc') || (selectedSortOption === 'nameDesc' && false)
-            | sortByDate: (selectedSortOption === 'dateAsc') || (selectedSortOption === 'dateDesc' && false);
-          track p.id
-        ) {
-          <app-product-card [product]="p"></app-product-card>
-        }
+      <div class="pokemon-grid">
+        <div *ngFor="let p of filteredPokemons()" class="pokemon-card">
+          <a [routerLink]="['/', p.id]">
+            <img [src]="p.images.small" [alt]="p.name" />
+            <h3>{{ p.name }}</h3>
+          </a>
+          <div class="pokemon-actions">
+            <button (click)="toggleFavorite(p, $event)">
+              {{ isFavorite(p.id) ? '★' : '☆' }}
+            </button>
+            <button (click)="addToPanier(p, $event)">Ajouter au panier</button>
+          </div>
+        </div>
       </div>
     </div>
   `,
-  styleUrls: ['./products-list.component.css'],
+  styleUrls: ['./products-list.component.css']
 })
-export class ProductsListComponent implements OnInit {
-  @Input() countFav = 0;
-  @Output() countFavChange = new EventEmitter<number>();
-
-  selectedSortOption = 'nameAsc';
+export class PokemonListComponent implements OnInit {
   searchTerm = '';
-  products: any[] = [];
+  selectedSortOption = 'nameAsc';
+  pokemons: Pokemon[] = [];
+  favoriteIds: string[] = [];
 
-  private productService = inject(ProductService);
+  private pokemonService = inject(PokemonService);
+  private panierService = inject(PanierService);
   private router = inject(Router);
 
-  sortOptions = [
-    { label: 'Name (A-Z)', value: 'nameAsc' },
-    { label: 'Name (Z-A)', value: 'nameDesc' },
-    { label: 'Date (Oldest First)', value: 'dateAsc' },
-    { label: 'Date (Newest First)', value: 'dateDesc' },
-  ];
-
-  constructor() {}
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((fetchedProducts) => {
-      const favoriteIds = this.getFavorites();
-
-      this.products = fetchedProducts.map((p) => ({
-        ...p,
-        isFavorite: favoriteIds.includes(p.id),
-      }));
-
-      this.updateFavoriteCount();
+    this.pokemonService.getPokemons().subscribe((fetchedPokemons) => {
+      this.favoriteIds = this.pokemonService.getFavorites();
+      this.pokemons = fetchedPokemons;
     });
   }
 
-  // Met à jour le compteur de favoris
-  updateFavoriteCount() {
-    const favoriteProducts = this.products.filter((product) => product.isFavorite);
-    this.countFav = favoriteProducts.length;
-    this.countFavChange.emit(this.countFav);
+  filteredPokemons(): Pokemon[] {
+    return this.pokemons
+      .filter(p => p.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
+      .sort((a, b) => this.sortKey(a, b));
   }
 
-  // (Optionally) get the current list of favorite IDs from localStorage
-  private getFavorites(): number[] {
-    try {
-      const favorites = localStorage.getItem(this.productService['FAVORITES_KEY']);
-      return favorites ? JSON.parse(favorites) : [];
-    } catch (error) {
-      console.error('Erreur lors de la récupération des favoris:', error);
-      return [];
+  private sortKey(a: Pokemon, b: Pokemon): number {
+    if (this.selectedSortOption === 'nameAsc') return a.name.localeCompare(b.name);
+    if (this.selectedSortOption === 'nameDesc') return b.name.localeCompare(a.name);
+    if (this.selectedSortOption === 'hpAsc') return parseInt(a.hp || '0') - parseInt(b.hp || '0');
+    if (this.selectedSortOption === 'hpDesc') return parseInt(b.hp || '0') - parseInt(a.hp || '0');
+    return 0;
+  }
+
+  isFavorite(id: string): boolean {
+    return this.favoriteIds.includes(id);
+  }
+
+  toggleFavorite(pokemon: Pokemon, event: Event): void {
+    event.stopPropagation();
+    const newStatus = this.pokemonService.toggleFavorite(pokemon.id);
+    if (newStatus) {
+      this.favoriteIds.push(pokemon.id);
+    } else {
+      this.favoriteIds = this.favoriteIds.filter(favId => favId !== pokemon.id);
     }
   }
 
-  // If you use this from child components to update the favorite count
-  onAddItemEvent(event: number) {
-    this.countFav += event;
-    this.countFavChange.emit(this.countFav);
-  }
-
-  // Example navigation method
-  navigateTo(route: string) {
-    this.router.navigate([route]);
+  addToPanier(pokemon: Pokemon, event: Event): void {
+    event.stopPropagation();
+    this.panierService.addToPanier(pokemon);
   }
 }
